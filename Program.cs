@@ -13,8 +13,7 @@ Console.WriteLine("5 - Sair");
 opcao = Console.ReadLine();
 
 if(opcao == "1"){
-    Cliente novoCliente = CriarConta();
-    clientes.Add(novoCliente);
+    CriarConta();
 }
 
 if(opcao == "4"){
@@ -27,27 +26,32 @@ Console.ReadLine();
 void ExibirClientes(){
     Console.WriteLine($"Número da conta        | Nome      |  CPF ");
     for(int i = 0; i < clientes.Count; i++){
-        Console.WriteLine($"{clientes[i].ResumoCliente}");
+        Console.WriteLine(clientes[i].ResumoCliente());
 
     }
 }
 
-Cliente CriarConta(){
+void CriarConta(){
     Cliente cliente = new Cliente();
+    Console.WriteLine("Data de nascimento do cliente:");
+    cliente.DataNascimento = DateTime.Parse(Console.ReadLine());
+    if(! cliente.MaiorIdade()){
+    Console.WriteLine("Não é possível abrir a conta, pois o cliente é menor de idade");
+    return;
+    }
+    Console.WriteLine("A idade do cliente é " + cliente.Idade);
     Console.WriteLine("Nome do cliente:");
     cliente.Nome = Console.ReadLine();
     Console.WriteLine("CPF do cliente:");
     cliente.CPF = Console.ReadLine();
     Console.WriteLine("Endereço do cliente:");
     cliente.Endereco = Console.ReadLine();
-    Console.WriteLine("Data de nascimento do cliente:");
-    cliente.DataNascimento = DateTime.Parse(Console.ReadLine());
     Console.WriteLine("Telefone do cliente:");
     cliente.Telefone = Console.ReadLine();
     Console.WriteLine("E-mail do cliente:");
     cliente.Email = Console.ReadLine();
     Console.WriteLine("Número da conta:");
     cliente.NumeroConta = int.Parse(Console.ReadLine());
-    return cliente;
+    clientes.Add(cliente);
 
 }
